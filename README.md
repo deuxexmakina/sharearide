@@ -9,6 +9,13 @@ pip install -r requirements.txt
 
 python3 app.py
 
-### Docker
+## Docker
 docker build -t www . ; docker run -p 8080:8080 www
+```
+
+## Git
+```bash
+git clone https://github.com/deuxexmakina/sharearide.git
+git fetch --all
+git reset --hard origin/master
 ```
