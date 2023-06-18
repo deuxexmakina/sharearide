@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    /* ... CSS styles ... */
+    .message {
+        background-color: #f0f0f0;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .name {
+        font-weight: bold;
+    }
+
+    .date-time {
+        color: gray;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Share a Ride</a>
+        <div class="collapse navbar-collapse d-flex" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Hi &nbsp; <strong><span id="username"></span></strong>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="myaccount/" id="user-details-link">User Details</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" id="logout-link">Log Out</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+</header>
+
+<div class="row">
+  <div class="col-1"></div>
+  <div class="col-10">
+
+<!-- edit here -->
+
+  <div class="container">
+    <h1 class="mt-5">Welcome!</h1>
+    <hr>
+    <!-- Your content here -->
+  </div>
+
+ <!-- tabs starts here -->
+<div class="container mt-5">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="message-board-tab" data-bs-toggle="tab" href="#message-board" role="tab" aria-controls="message-board" aria-selected="true">Message Board</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="passengers-near-you-tab" data-bs-toggle="tab" href="#passengers-near-you" role="tab" aria-controls="passengers-near-you" aria-selected="false">Passengers Near You</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="drivers-near-you-tab" data-bs-toggle="tab" href="#drivers-near-you" role="tab" aria-controls="drivers-near-you" aria-selected="false">Drivers Near You</button>
+      </li>      
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="my-account-tab" data-bs-toggle="tab" href="#my-account" role="tab" aria-controls="my-account" aria-selected="false">My Account</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="my-admin-tab" data-bs-toggle="tab" href="#my-admin" role="tab" aria-controls="my-admin" aria-selected="false">Admin</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="message-board" role="tabpanel" aria-labelledby="message-board-tab">
+        <!-- Content for Message Board -->
+        <p><div id="make-comment"></div></p>
+        <p><div id="message-board-container"></div></p>
+      </div>
+      <div class="tab-pane fade" id="drivers-near-you" role="tabpanel" aria-labelledby="drivers-near-you-tab">
+        <!-- Content for Drivers Near You -->
+        <div id="driver-results-container"></div>
+      </div>
+      <div class="tab-pane fade" id="passengers-near-you" role="tabpanel" aria-labelledby="passengers-near-you-tab">
+        <!-- Content for Passengers Near You -->
+        <div id="rider-results-container"></div>
+      </div>
+      <div class="tab-pane fade" id="my-account" role="tabpanel" aria-labelledby="my-account-tab">
+        <!-- Content for My Account -->
+        <p>
+          <div class="mb-3 row">
+            <div class="col">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name">
+            </div>
+            <div class="col">
+              <label for="email" class="form-label">Email</label>
+              <input type="text" class="form-control" id="email" disabled>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="col">
+              <label for="city" class="form-label">City</label>
+              <input type="text" class="form-control" id="city">
+            </div>
+            <div class="col">
+              <label for="current_location" class="form-label">Current Location</label>
+              <input type="text" class="form-control" id="current_location">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="col">
+              <label for="car_type" class="form-label">Car Type</label>
+              <input type="text" class="form-control" id="car_type">
+            </div>
+            <div class="col">
+              <label for="seats" class="form-label">Seats</label>
+              <input type="text" class="form-control" id="seats">
+            </div>
+            <div class="col">
+              <label for="payment_mode" class="form-label">Payment Mode</label>
+              <input type="text" class="form-control" id="payment_mode">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="col">
+              <label for="role" class="form-label">Role</label>
+              <select class="form-select" id="role">
+                <option value="driver">Driver</option>
+                <option value="rider">Rider</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="reputation" class="form-label">Reputation</label>
+              <input type="text" class="form-control" id="reputation" disabled>
+            </div>
+            <div class="col">
+              <label for="violations" class="form-label">Violations</label>
+              <input type="text" class="form-control" id="violations" disabled>
+            </div>
+          </div>
+          <div class="row justify-content-end">
+            <div class="col-auto">
+              <button id="update-btn" type="submit" class="btn btn-primary">Update</button>
+            </div>
+            <div class="col-auto">
+              <button id="delete-btn" type="button" class="btn btn-danger">Delete Account</button>
+            </div>
+          </div>
+        </p>
+      </div>
+      <div class="tab-pane fade" id="my-admin" role="tabpanel" aria-labelledby="my-admin-tab">
+        <!-- Content for Admin -->
+        <p><div id="addemails"> 
+        
+            <form id="email-form">
+              <div class="mb-3">
+                <label for="email" class="form-label">Add email to preapproved list: </label>
+                <input type="email" class="form-control" id="email" name="email" required>
+              </div>
+        
+              <div class="row justify-content-end">
+                <div class="col-auto">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <div class="col-auto">
+                  <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
+                </div>
+              </div>
+            </form>
+          </div>
+            <p><div id="email-list"></div></p>
+        </div>
+        </p>
+        
+      </div>
+    </div>
+  </div>
+  <!-- tabs ends here -->
+  
+
+<!-- end edit here -->
+
+  </div>
+  <div class="col-1"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+var accessToken = localStorage.getItem('access_token');
+var userEmail = localStorage.getItem('email');
+
+// If the user is not logged in, redirect to the login page
+if (!accessToken) {
+  window.location.href = '/login';
+}
+
+// Fetch current user's details
+fetch('http://127.0.0.1:5000/users/' + userEmail, {
+  headers: {
+    'Authorization': 'Bearer ' + accessToken
+  }
+})
+.then(function(response) {
+  if (response.ok) {
+    return response.json();
+  } else {
+    throw new Error('Failed to fetch data');
+  }
+})
+.then(function(data) {
+  // Display the name
+  var usernameElement = document.getElementById('username');
+  usernameElement.textContent = data.name;
+
+  document.getElementById('name').value = data.name;
+  document.getElementById('email').value = data.email;
+  document.getElementById('reputation').value = data.reputation;
+  document.getElementById('car_type').value = data.car_type;
+  document.getElementById('current_location').value = data.current_location;
+  document.getElementById('city').value = data.city;
+  document.getElementById('payment_mode').value = data.payment_mode;
+  document.getElementById('seats').value = data.seats;
+  document.getElementById('violations').value = data.violations;
+  document.getElementById('role').value = data.role;
+
+
+
+  // Get the role of the user and convert it to lower case for comparison
+  var role = data.role.toLowerCase();
+
+  // Get the tabs
+  var passengersNearYouTab = document.getElementById('passengers-near-you-tab');
+  var driversNearYouTab = document.getElementById('drivers-near-you-tab');
+
+  // If the user is an admin, they can see all tabs, so we don't need to do anything
+  if (role === 'admin') {
+    return;
+  }
+
+  // Hide the appropriate tab based on the role
+  if (role === 'driver') {
+    driversNearYouTab.style.display = 'none';
+  } else if (role === 'rider') {
+    passengersNearYouTab.style.display = 'none';
+  } else {
+    // If the role is neither admin, driver, nor rider, only the message board tab should be visible
+    passengersNearYouTab.style.display = 'none';
+    driversNearYouTab.style.display = 'none';
+  }
+})
+.catch(function(error) {
+  console.log(error);
+  // alert('Failed to get userdata');
+});
+
+// Logout function
+function logout() {
+  // Remove the access token from local storage
+  localStorage.removeItem('access_token');
+
+  // Redirect to the login page
+  window.location.href = '/login';
+}
+
+// Attach the logout function to the logout link
+document.getElementById('logout-link').addEventListener('click', function(event) {
+  event.preventDefault();
+  logout();
+});
+
+// User details function
+function userDetails() {
+  // Fetch individual user data
+  fetch('http://127.0.0.1:5000/users/' + userEmail, {
+    headers: {
+      'Authorization': 'Bearer ' + accessToken
+    }
+  })
+  .then(function(response) {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Failed to fetch data');
+    }
+  })
+  .then(function(data) {
+    // Display the user data or do something else
+    console.log(data);
+  })
+  .catch(function(error) {
+    console.log(error);
+    // alert('Failed to fetch user data');
+  });
+}
+
+// Attach the user details function to the user details link
+document.getElementById('user-details-link').addEventListener('click', function(event) {
+  event.preventDefault();
+  userDetails();
+});
+
+// Update user details
+document.getElementById('update-btn').addEventListener('click', function(event) {
+  event.preventDefault();
+
+  // Display confirmation prompt
+  var confirmUpdate = confirm("Are you sure you want to update your account?");
+
+  if (confirmUpdate) {
+    // Fetch user data from the form
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var reputation = document.getElementById('reputation').value;
+    var car_type = document.getElementById('car_type').value;
+    var current_location = document.getElementById('current_location').value;
+    var city = document.getElementById('city').value;
+    var payment_mode = document.getElementById('payment_mode').value;
+    var seats = document.getElementById('seats').value;
+    var violations = document.getElementById('violations').value;
+    var role = document.getElementById('role').value;
+
+    fetch('http://127.0.0.1:5000/users/' + userEmail, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        reputation: reputation,
+        car_type: car_type,
+        current_location: current_location,
+        city: city,
+        payment_mode: payment_mode,
+        seats: seats,
+        violations: violations,
+        role: role
+      })
+    })
+    .then(function(response) {
+      if (response.ok) {
+        console.log('User updated');
+        alert('Your account has been updated.');
+        location.reload();
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    })
+    .catch(function(error) {
+      console.log('There has been a problem with your fetch operation: ' + error.message);
+    });
+  }
+});
+
+
+// Delete user
+document.getElementById('delete-btn').addEventListener('click', function(event) {
+  event.preventDefault();
+
+  // Display confirmation prompt
+  var confirmDelete = confirm("Are you sure you want to delete your account? This action cannot be undone.");
+
+  if (confirmDelete) {
+    fetch('http://127.0.0.1:5000/users/' + userEmail, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken
+      }
+    })
+    .then(function(response) {
+      if (response.ok) {
+        console.log('Account deleted');
+        // Remove access token and redirect to login
+        localStorage.removeItem('access_token');
+        window.location.href = '/login';
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    })
+    .catch(function(error) {
+      console.log('There has been a problem with your fetch operation: ' + error.message);
+    });
+  }
+
+});
+
+// Retrieve current user's city and current location
+fetch('http://127.0.0.1:5000/users/' + userEmail, {
+  headers: {
+    'Authorization': 'Bearer ' + accessToken
+  }
+})
+  .then(function(response) {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Failed to fetch user data');
+    }
+  })
+  .then(function(user) {
+    var userCity = user.city;
+    var userCurrentLocation = user.current_location;
+
+    // Fetch the drivers with the same city and current location
+    fetch('http://127.0.0.1:5000/users', {
+      headers: {
+        'Authorization': 'Bearer ' + accessToken
+      }
+    })
+      .then(function(response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to fetch driver data');
+        }
+      })
+      .then(function(users) {
+        // Filter the users to get the drivers with the same city and current location
+        var drivers = users.filter(function(user) {
+          return user.role === 'driver' && user.city === userCity && user.current_location === userCurrentLocation;
+        });
+
+        // Generate the HTML for the table
+        var tableHTML = '<table class="table"><thead><tr><th>Name</th><th>Email</th><th>City</th><th>Current Location</th><th>Car Type</th><th>Seats</th><th>Reputation</th><th>Violations</th></tr></thead><tbody>';
+
+        // Iterate over each driver and create a row in the table
+        drivers.forEach(function(driver) {
+          tableHTML += '<tr>';
+          tableHTML += '<td>' + driver.name + '</td>';
+          tableHTML += '<td>' + driver.email + '</td>';
+          tableHTML += '<td>' + driver.city + '</td>';
+          tableHTML += '<td>' + driver.current_location + '</td>';
+          tableHTML += '<td>' + driver.car_type + '</td>';
+          tableHTML += '<td>' + driver.seats + '</td>';
+          tableHTML += '<td>' + driver.reputation + '</td>';
+          tableHTML += '<td>' + driver.violations + '</td>';
+          tableHTML += '</tr>';
+        });
+
+        tableHTML += '</tbody></table>';
+
+        // Display the table in the driver-results-container
+        var driverResultsContainer = document.getElementById('driver-results-container');
+        driverResultsContainer.innerHTML = tableHTML;
+      })
+      .catch(function(error) {
+        console.log(error);
+        // alert('Failed to fetch driver data');
+      });
+  })
+  .catch(function(error) {
+    console.log(error);
+    // alert('Failed to fetch user data');
+  });
+
+  // Retrieve current user's city and current location
+fetch('http://127.0.0.1:5000/users/' + userEmail, {
+  headers: {
+    'Authorization': 'Bearer ' + accessToken
+  }
+})
+  .then(function(response) {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Failed to fetch user data');
+    }
+  })
+  .then(function(user) {
+    var userCity = user.city;
+    var userCurrentLocation = user.current_location;
+
+    // Fetch the drivers with the same city and current location
+    fetch('http://127.0.0.1:5000/users', {
+      headers: {
+        'Authorization': 'Bearer ' + accessToken
+      }
+    })
+      .then(function(response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to fetch driver data');
+        }
+      })
+      .then(function(users) {
+        // Filter the users to get the drivers with the same city and current location
+        var drivers = users.filter(function(user) {
+          return user.role === 'driver' && user.city === userCity && user.current_location === userCurrentLocation;
+        });
+
+        // Generate the HTML for the table
+        var tableHTML = '<table class="table"><thead><tr><th>Name</th><th>Email</th><th>City</th><th>Current Location</th><th>Car Type</th><th>Seats</th><th>Reputation</th><th>Violations</th></tr></thead><tbody>';
+
+        // Iterate over each driver and create a row in the table
+        drivers.forEach(function(driver) {
+          tableHTML += '<tr>';
+          tableHTML += '<td>' + driver.name + '</td>';
+          tableHTML += '<td>' + driver.email + '</td>';
+          tableHTML += '<td>' + driver.city + '</td>';
+          tableHTML += '<td>' + driver.current_location + '</td>';
+          tableHTML += '<td>' + driver.car_type + '</td>';
+          tableHTML += '<td>' + driver.seats + '</td>';
+          tableHTML += '<td>' + driver.reputation + '</td>';
+          tableHTML += '<td>' + driver.violations + '</td>';
+          tableHTML += '</tr>';
+        });
+
+        tableHTML += '</tbody></table>';
+
+        // Display the table in the driver-results-container
+        var driverResultsContainer = document.getElementById('rider-results-container');
+        driverResultsContainer.innerHTML = tableHTML;
+      })
+      .catch(function(error) {
+        console.log(error);
+        // alert('Failed to fetch driver data');
+      });
+  })
+  .catch(function(error) {
+    console.log(error);
+    // alert('Failed to fetch user data');
+  });
+
+
+  
+// Fetch comments
+fetch('http://127.0.0.1:5000/comments', {
+  headers: {
+    'Authorization': 'Bearer ' + accessToken
+  }
+})
+  .then(function(response) {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Failed to fetch comments');
+    }
+  })
+  .then(function(data) {
+    // Display comments as a message board
+    var messageBoardContainer = document.getElementById('message-board-container');
+
+    // Loop through the comments and create message elements
+    data.forEach(function(comment) {
+      var messageElement = document.createElement('div');
+      messageElement.classList.add('message');
+
+      var dateTimeElement = document.createElement('span');
+      dateTimeElement.classList.add('date-time');
+      dateTimeElement.textContent = comment.date_time;
+
+      var nameElement = document.createElement('span');
+      nameElement.classList.add('name');
+      nameElement.textContent = comment.name;
+
+      var messageTextElement = document.createElement('span');
+      messageTextElement.classList.add('message-text');
+      messageTextElement.textContent = comment.message;
+
+      messageElement.appendChild(dateTimeElement);
+      messageElement.appendChild(document.createTextNode(' | '));
+      messageElement.appendChild(nameElement);
+      messageElement.appendChild(document.createTextNode(' | '));
+      messageElement.appendChild(messageTextElement);
+
+      messageBoardContainer.appendChild(messageElement);
+    });
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+
+
+// Create comment section
+var makeCommentContainer = document.getElementById('make-comment');
+
+// Create label for the comment input field
+var commentLabel = document.createElement('label');
+commentLabel.textContent = 'Comment:';
+commentLabel.classList.add('form-label');
+
+// Create text field
+var commentInput = document.createElement('input');
+commentInput.type = 'text';
+commentInput.placeholder = 'Enter your comment';
+commentInput.classList.add('form-control');
+
+// Create submit button
+var submitButton = document.createElement('button');
+submitButton.textContent = 'Send Message';
+submitButton.classList.add('btn', 'btn-primary', 'me-2');
+
+// Create form group div
+var formGroupDiv = document.createElement('div');
+formGroupDiv.classList.add('input-group');
+
+// Append the input field to the form group div
+formGroupDiv.appendChild(commentInput);
+
+// Create button wrapper div
+var buttonWrapper = document.createElement('div');
+buttonWrapper.classList.add('input-group-append');
+buttonWrapper.appendChild(submitButton);
+
+// Append the button wrapper to the form group div
+formGroupDiv.appendChild(buttonWrapper);
+
+// Append the label and form group div to the comment section container
+makeCommentContainer.appendChild(commentLabel);
+makeCommentContainer.appendChild(formGroupDiv);
+
+// Function to reload the page
+function reloadPage() {
+  location.reload();
+}
+
+// Add event listener to submit button
+submitButton.addEventListener('click', function() {
+  var name = userEmail; // Get the current user's name from your implementation
+  var comment = commentInput.value;
+
+  // Create comment object
+  var newComment = {
+    name: name,
+    message: comment
+  };
+
+  // Send the comment to the server
+  fetch('http://127.0.0.1:5000/comments', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + accessToken
+    },
+    body: JSON.stringify(newComment)
+  })
+    .then(function(response) {
+      if (response.ok) {
+        console.log('Comment submitted');
+        // Clear the comment input field after submission
+        commentInput.value = '';
+        // Reload the page after successful submission
+        reloadPage();
+      } else {
+        throw new Error('Failed to submit comment');
+      }
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+});
+
+
+/// Select the admin container element
+var adminContainer = document.getElementById('admin-container');
+
+// Fetch data from the API with token authorization
+fetch('http://127.0.0.1:5000/approved_list', {
+  headers: {
+    'Authorization': 'Bearer ' + accessToken
+  }
+})
+  .then(function (response) {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Failed to fetch approved list');
+    }
+  })
+  .then(function (data) {
+    // // Clear existing content in the admin container
+    adminContainer.innerHTML = '';
+
+    // Display the data inside the admin container
+    for (var i = 0; i < data.length; i++) {
+      var emailDiv = document.createElement('div');
+      emailDiv.textContent = 'Email: ' + data[i].email;
+
+      var idDiv = document.createElement('div');
+      idDiv.textContent = 'ID: ' + data[i].id;
+
+      var itemDiv = document.createElement('div');
+      itemDiv.classList.add('item');
+      itemDiv.appendChild(emailDiv);
+      itemDiv.appendChild(idDiv);
+
+      // Append the item div to the admin container
+      adminContainer.appendChild(itemDiv);
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+
+ // Function to fetch and display the email list
+ function displayEmailList() {
+      fetch("http://127.0.0.1:5000/approved_list")
+        .then(function(response) {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Failed to fetch email list");
+          }
+        })
+        .then(function(data) {
+          var emailListContainer = document.getElementById("email-list");
+
+          if (data.length === 0) {
+            emailListContainer.innerHTML = "<p>No emails found.</p>";
+          } else {
+            var emailListHTML = "";
+
+            data.forEach(function(email) {
+              var emailHTML = `
+                <div class="row mb-3">
+                  <div class="col">${email.email}</div>
+                  <div class="col-auto">
+                    <button type="button" class="btn btn-danger" onclick="deleteEmail(${email.id})">Delete</button>
+                  </div>
+                </div>
+              `;
+
+              emailListHTML += emailHTML;
+            });
+
+            emailListContainer.innerHTML = emailListHTML;
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+          var emailListContainer = document.getElementById("email-list");
+          emailListContainer.innerHTML = "<p>Failed to fetch email list.</p>";
+        });
+    }
+
+    // Function to delete an email
+    function deleteEmail(id) {
+      var confirmation = confirm("Are you sure you want to delete this email?");
+      if (confirmation) {
+        fetch(`http://127.0.0.1:5000/delete_email/${id}`, {
+          method: "DELETE"
+        })
+          .then(function(response) {
+            if (response.ok) {
+              alert("Email deleted successfully!");
+              displayEmailList();
+            } else {
+              throw new Error("Failed to delete email");
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+            alert("Failed to delete email. Please try again.");
+          });
+      }
+    }
+
+    // Display the email list on page load
+    displayEmailList();
+
+</script>
+  
+</body>
+</html>
