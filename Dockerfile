@@ -1,5 +1,5 @@
 # Use Nginx image from Docker Hub
-FROM nginx:latest
+FROM nginx:1.29.4-trixie
 
 # Remove default nginx website
 RUN rm -rf /usr/share/nginx/html/*
